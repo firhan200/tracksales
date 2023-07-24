@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  app:
+    image: tracksales
+    container_name: tracksales_app
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - .:/app
+    command: npm run dev
+    ports:
+      - 3001:3000
+    environment:
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: true
+    networks:
+      - app-network
+  
+  #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
