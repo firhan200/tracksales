@@ -5,16 +5,17 @@ services:
     container_name: tracksales_app
     build:
       context: .
-      dockerfile: ./Dockerfile.prod
+      dockerfile: ./Dockerfile.dev
     volumes:
       - .:/app
+    command: npm run dev
     ports:
       - 3001:3000
     environment:
       NODE_ENV: development
+      CHOKIDAR_USEPOLLING: true
     networks:
       - app-network
-    command: npm run start
   
   #MySQL Service
   db:
