@@ -33,6 +33,7 @@ const UserList = ({ users }) => {
                 {/* head */}
                 <thead>
                     <tr>
+			<th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Actions</th>
@@ -43,6 +44,7 @@ const UserList = ({ users }) => {
                         data != null ?
                         data.map((user, index) => (
                             <tr key={index}>
+				<td>{ user.id }</td>
                                 <td>{ user.name }</td>
                                 <td>{ user.email }</td>
                                 <td>
