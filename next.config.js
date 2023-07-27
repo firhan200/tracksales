@@ -15,4 +15,7 @@ module.exports = {
       return `${new Date().getTime()}`;
     }
   },
+  // experimental: {
+  //   serverActions: true,
+  // },
 }
